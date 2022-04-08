@@ -2,7 +2,7 @@
   "name": "notas-admin",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/shared/http/server.ts",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint . --ext .ts",
@@ -29,10 +29,12 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-prettier": "^3.2.0",
     "prettier": "^2.6.2",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1"
   }
 }

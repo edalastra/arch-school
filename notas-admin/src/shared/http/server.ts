@@ -10,4 +10,4 @@ const app = express();
 app.use(cors);
 app.use(errorMiddleware);
 
-app.listen(env.PORT, () => 'Server running on ' + env.PORT);
+app.listen(env.PORT, () => console.log('Server running on ' + env.PORT));
