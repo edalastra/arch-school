@@ -17,6 +17,6 @@ export class UpdateNotaHandler implements HttpHandlerInterface {
     } as UpdateNotaInterface);
 
     logger.info('Nota updated.');
-    return res.json({ nota });
+    return res.status(200).json({ nota });
   }
 }

@@ -1,5 +1,8 @@
 import { Response } from 'express';
-import { ResultNotasInterface } from '../../../../src/modules/notas/domain/models';
+import {
+  NotaInterface,
+  ResultNotasInterface,
+} from '../../../../src/modules/notas/domain/models';
 
 export const fakeNotasResult = (): ResultNotasInterface[] => [
   {
@@ -17,6 +20,15 @@ export const fakeNotasResult = (): ResultNotasInterface[] => [
     notas: [9.05, 4, 4.5, 0.1, 0.1],
   },
 ];
+
+export const fakeNota = {
+  id: 1,
+  valor: 4,
+  aluno: {
+    id: '1',
+    nome: 'jOÃO',
+  },
+} as unknown as NotaInterface;
 
 export const generateFakeId = (): number => Math.floor(Math.random() * 100);
 
