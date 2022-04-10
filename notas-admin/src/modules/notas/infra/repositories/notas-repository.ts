@@ -1,5 +1,10 @@
 import { Client } from 'pg';
-import { NotaInterface, ResultNotasInterface } from '../../domain/models';
+import { AppError } from 'src/shared/errors';
+import {
+  NotaInterface,
+  ResultNotasInterface,
+  UpdateNotaInterface,
+} from '../../domain/models';
 import { NotasRepositoryInterface } from '../../domain/repositories';
 
 export class NotaRepository implements NotasRepositoryInterface {
@@ -28,7 +33,7 @@ export class NotaRepository implements NotasRepositoryInterface {
         a.nome nome,
         ROUND(AVG(n.valor)::numeric ,2) media,
         (CASE 
-        	WHEN AVG(n.valor) > 4 THEN 'REPROVADO'
+        	WHEN AVG(n.valor) < 4 THEN 'REPROVADO'
         	WHEN AVG(n.valor) > 4 AND  AVG(n.valor) < 6 THEN 'RECUPERAÇAO'
         	WHEN AVG(n.valor) >= 6 THEN 'APROVADO'
         end) situacao,
@@ -46,22 +51,43 @@ export class NotaRepository implements NotasRepositoryInterface {
     return result.rows;
   }
 
-  async findById(id: number): Promise<NotaInterface | undefined> {
-    const sql = `
-      SELECT 
-        n.id nota_id
-        n.valor valor,
-        a.id aluno_id,
-        a.nome aluno_nome  
-      FROM nota n
-      JOIN aluno a ON a.id = n.aluno_id
-      WHERE n.id = $1
-      `;
-    const values = [id];
-
+  async update(nota: NotaInterface): Promise<NotaInterface> {
+    const sql = `UPDATE nota SET valor = $1
+	    WHERE nota.id = $2 RETURNING *`;
+    const values = [nota.valor, nota.aluno.id];
     const result = await this.db.query(sql, values);
     const [row] = result.rows;
-    const nota = {
+    return {
+      id: row.id,
+      valor: row.valor,
+      aluno: {
+        id: row.aluno_id,
+        nome: nota.aluno.nome,
+      },
+    };
+  }
+
+  async findById(id: number): Promise<NotaInterface> {
+    const sql = `
+      SELECT 
+            a.id aluno_id,
+            a.nome aluno_nome,
+            n.valor valor,
+            n.id nota_id
+          FROM nota n
+          JOIN aluno a ON a.id = n.aluno_id
+          WHERE n.id = $1
+          `;
+
+    const result = await this.db.query(sql, [id]);
+
+    if (result.rowCount < 1) {
+      throw new AppError('Nota não encontrada.');
+    }
+
+    const [row] = result.rows;
+
+    return {
       id: row.nota_id,
       valor: row.valor,
       aluno: {
@@ -69,7 +95,5 @@ export class NotaRepository implements NotasRepositoryInterface {
         nome: row.aluno_nome,
       },
     } as NotaInterface;
-
-    return nota;
   }
 }
