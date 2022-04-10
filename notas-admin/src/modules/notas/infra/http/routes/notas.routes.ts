@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { makeNotasHandler } from 'src/modules/notas/factories/handlers/notas-handler-factory';
+import { makeCreateHandler } from 'src/modules/notas/factories/handlers';
 
 const notasRouter = Router();
 
-const notasHandle = makeNotasHandler();
+const notasHandle = makeCreateHandler();
 
 notasRouter.post('/', notasHandle.handle.bind(notasHandle));
 
