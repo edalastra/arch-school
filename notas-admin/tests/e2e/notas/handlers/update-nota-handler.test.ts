@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../../src/config/app';
 import { client } from '../fake/poolClient';
 
-describe('CreateNotaHandler', function () {
+describe('UpdateNotaHandler', function () {
   beforeEach(async function () {
     await client.query(
       'CREATE TEMPORARY TABLE aluno(LIKE aluno INCLUDING ALL)',
@@ -12,6 +12,9 @@ describe('CreateNotaHandler', function () {
 
   beforeEach(async function () {
     await client.query(`INSERT INTO pg_temp.aluno(nome) VALUES('test aluno')`);
+    await client.query(
+      `INSERT INTO pg_temp.nota(valor, aluno_id) VALUES(5.00, 1)`,
+    );
   });
 
   afterEach(async function () {
@@ -22,12 +25,11 @@ describe('CreateNotaHandler', function () {
   describe('POST /v1/notas', () => {
     it('Should create a new nota', async () => {
       const body = {
-        alunoId: 1,
         valor: 9.5,
       };
 
-      const response = await request(app).post('/v1/notas').send(body);
-      expect(response.status).toBe(201);
+      const response = await request(app).post('/v1/notas/1').send(body);
+      expect(response.status).toBe(200);
     });
   });
 });
