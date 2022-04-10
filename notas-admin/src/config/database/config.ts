@@ -10,5 +10,3 @@ export const client = new Pool({
   max: 10,
   idleTimeoutMillis: 1000,
 });
-
-client.connect();

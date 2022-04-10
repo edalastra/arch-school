@@ -1,4 +1,6 @@
 import env from '../env';
-import app from '../../config/app';
+import { createApp } from '../../config/app';
+
+const app = createApp();
 
 app.listen(env.PORT, () => console.log('Server running on ' + env.PORT));

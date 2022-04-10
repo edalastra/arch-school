@@ -22,7 +22,7 @@ export class NotaRepository implements NotasRepositoryInterface {
 
   async findAll(): Promise<ResultNotasInterface[]> {
     const sql = `
-	SELECT 
+	    SELECT 
         a.id aluno_id,
         a.nome nome,
         ROUND(AVG(n.valor)::numeric ,2) media,
@@ -37,7 +37,7 @@ export class NotaRepository implements NotasRepositoryInterface {
        	) notas
       FROM nota n
       JOIN aluno a ON a.id = n.aluno_id
-     GRoUP by a.id
+      GROUP by a.id
       `;
 
     const result = await this.db.query(sql);
