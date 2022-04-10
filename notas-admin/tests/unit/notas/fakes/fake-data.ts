@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { ResultNotasInterface } from '../../../../src/modules/notas/domain/models';
 
 export const fakeNotasResult = (): ResultNotasInterface[] => [
@@ -18,3 +19,20 @@ export const fakeNotasResult = (): ResultNotasInterface[] => [
 ];
 
 export const generateFakeId = (): number => Math.floor(Math.random() * 100);
+
+const json = (o: object, n: number) => {
+  return {
+    body: o,
+    status: n,
+  };
+};
+
+const status = (n: number) => {
+  return {
+    json: (o: object) => json(o, n),
+  };
+};
+
+export const mockResponse = {
+  status,
+} as unknown as Response;
