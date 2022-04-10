@@ -6,11 +6,13 @@ export class NotaRepository implements NotasRepositoryInterface {
   constructor(private readonly db: Client) {}
 
   async create(nota: NotaInterface): Promise<NotaInterface> {
-    const sql = 'INSERT INTO nota(aluno_id, nota) VALUES($1, $2) RETURNING *';
+    const sql = 'INSERT INTO nota(aluno_id, valor) VALUES($1, $2) RETURNING *';
     const values = [nota.aluno.id, nota.valor];
 
     const result = await this.db.query(sql, values);
     const [createdNota] = result.rows;
+
+    console.log(createdNota);
 
     return {
       id: createdNota.id,

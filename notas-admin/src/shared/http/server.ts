@@ -1,8 +1,7 @@
 import express from 'express';
-import 'express-async-errors';
 import cors from 'cors';
 import { json } from 'body-parser';
-
+import 'express-async-errors';
 import env from '../env';
 import { errorMiddleware } from './middlewares';
 import router from './routes';

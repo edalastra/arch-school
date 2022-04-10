@@ -1,4 +1,5 @@
 import { Client } from 'pg';
+import { AppError } from 'src/shared/errors';
 import { AlunoInterface } from '../../domain/models';
 import { AlunosRepositoryInterface } from '../../domain/repositories';
 
@@ -21,15 +22,21 @@ export class AlunosRepository implements AlunosRepositoryInterface {
   async findById(id: number): Promise<AlunoInterface | undefined> {
     const sql = `
       SELECT 
-        a.nome nome
+        a.nome nome,
         a.id id
       FROM aluno a
-      WHERE a.id = $1
+      WHERE a.id = $1;
       `;
     const values = [id];
 
     const result = await this.db.query(sql, values);
+
+    if (result.rowCount < 1) {
+      throw new AppError('Aluno não encontrado');
+    }
+
     const [row] = result.rows;
+
     const aluno = {
       id: row.id,
       nome: row.nome,
