@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UpdateNotaInterface } from 'src/modules/notas/domain/models';
 import { UpdateNotaService } from 'src/modules/notas/services/update-nota-service';
+import { logger } from '../../../../../shared/logger';
 import { HttpHandlerInterface } from 'src/shared/types';
 
 export class UpdateNotaHandler implements HttpHandlerInterface {
@@ -15,6 +16,7 @@ export class UpdateNotaHandler implements HttpHandlerInterface {
       notaId,
     } as UpdateNotaInterface);
 
+    logger.info('Nota updated.');
     return res.json({ nota });
   }
 }

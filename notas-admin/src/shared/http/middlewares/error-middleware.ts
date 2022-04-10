@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { logger } from 'src/shared/logger';
 import { AppError } from '../../errors/AppError';
 
 export const errorMiddleware = (
@@ -8,7 +9,7 @@ export const errorMiddleware = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ) => {
-  console.error(error);
+  logger.error(JSON.stringify(error));
 
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({
