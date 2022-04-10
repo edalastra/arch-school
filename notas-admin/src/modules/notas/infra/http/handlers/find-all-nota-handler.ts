@@ -8,6 +8,6 @@ export class FindAllNotaHandler implements HttpHandlerInterface {
   async handle(req: Request, res: Response): Promise<Response> {
     const notas = await this.service.execute();
 
-    return res.json({ notas });
+    return res.status(200).json({ notas });
   }
 }
