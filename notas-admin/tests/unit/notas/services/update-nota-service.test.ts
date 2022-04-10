@@ -14,8 +14,8 @@ const makeSut = () => {
   };
 };
 
-describe('CreateNotaService', () => {
-  it('Should create a new nota and return the correct value', async () => {
+describe('UpdateNotaService', () => {
+  it('Should updat a nota and return the correct value', async () => {
     const { sut, notasRepository, alunosRepository } = makeSut();
 
     const aluno = await alunosRepository.create({ nome: 'João Teste' });
