@@ -5,3 +5,11 @@ export interface NotaInterface {
   aluno: AlunoInterface;
   valor: number;
 }
+
+export interface ResultNotasInterface {
+  aluno_id: number;
+  nome: string;
+  media: number;
+  stituacao: string;
+  notas: number[];
+}

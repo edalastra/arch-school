@@ -1,10 +1,15 @@
 import { Router } from 'express';
-import { makeCreateHandler } from 'src/modules/notas/factories/handlers';
+import {
+  makeCreateNotaHandler,
+  makeFindAllNotaHandler,
+} from 'src/modules/notas/factories/handlers';
 
 const notasRouter = Router();
 
-const notasHandle = makeCreateHandler();
+const createNotasHandle = makeCreateNotaHandler();
+const findAllNotaHandler = makeFindAllNotaHandler();
 
-notasRouter.post('/', notasHandle.handle.bind(notasHandle));
+notasRouter.post('/', createNotasHandle.handle.bind(createNotasHandle));
+notasRouter.get('/', findAllNotaHandler.handle.bind(findAllNotaHandler));
 
 export default notasRouter;
