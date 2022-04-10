@@ -1,10 +1,6 @@
 import { Client } from 'pg';
 import { AppError } from 'src/shared/errors';
-import {
-  NotaInterface,
-  ResultNotasInterface,
-  UpdateNotaInterface,
-} from '../../domain/models';
+import { NotaInterface, ResultNotasInterface } from '../../domain/models';
 import { NotasRepositoryInterface } from '../../domain/repositories';
 
 export class NotaRepository implements NotasRepositoryInterface {
