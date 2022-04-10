@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { AppError } from 'src/shared/errors';
+import { AppError } from '../../../../shared/errors';
 import { NotaInterface, ResultNotasInterface } from '../../domain/models';
 import { NotasRepositoryInterface } from '../../domain/repositories';
 

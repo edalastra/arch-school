@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import notasRouter from 'src/modules/notas/infra/http/routes/notas.routes';
+import notasRouter from '../../modules/notas/infra/http/routes/notas.routes';
 
 const router = Router();
 

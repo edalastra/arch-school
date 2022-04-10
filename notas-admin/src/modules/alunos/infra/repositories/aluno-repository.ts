@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { AppError } from 'src/shared/errors';
+import { AppError } from '../../../../shared/errors';
 import { AlunoInterface } from '../../domain/models';
 import { AlunosRepositoryInterface } from '../../domain/repositories';
 

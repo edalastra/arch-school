@@ -1,5 +1,5 @@
 import { NotaRepository } from '../../infra/repositories';
-import { client } from 'src/config/database';
+import { client } from '../../../../config/database';
 import { HttpHandlerInterface } from 'src/shared/types';
 import { FindAllNotaService } from '../../services';
 import { FindAllNotaHandler } from '../../infra/http/handlers/find-all-nota-handler';

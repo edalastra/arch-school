@@ -16,3 +16,5 @@ app.use(errors());
 app.use(errorMiddleware);
 
 app.listen(env.PORT, () => console.log('Server running on ' + env.PORT));
+
+export default app;

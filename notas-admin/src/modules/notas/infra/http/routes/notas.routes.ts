@@ -3,8 +3,8 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import {
   makeCreateNotaHandler,
   makeFindAllNotaHandler,
-} from 'src/modules/notas/factories/handlers';
-import { makeUpdateNotaHandler } from 'src/modules/notas/factories/handlers/update-nota-handler.factory';
+  makeUpdateNotaHandler,
+} from '../../../factories/handlers';
 
 const notasRouter = Router();
 

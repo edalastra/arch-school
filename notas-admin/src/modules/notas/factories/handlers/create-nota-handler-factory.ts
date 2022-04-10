@@ -1,9 +1,9 @@
 import { NotaRepository } from '../../infra/repositories';
-import { client } from 'src/config/database';
-import { HttpHandlerInterface } from 'src/shared/types';
+import { client } from '../../../../config/database';
+import { HttpHandlerInterface } from '../../../../shared/types';
 import { CreateNotaHandler } from '../../infra/http/handlers/create-nota-handler';
 import { CreateNotaService } from '../../services';
-import { AlunosRepository } from 'src/modules/alunos/infra/repositories';
+import { AlunosRepository } from '../../../../modules/alunos/infra/repositories';
 
 export const makeCreateNotaHandler = (): HttpHandlerInterface => {
   const notasRepository = new NotaRepository(client);
