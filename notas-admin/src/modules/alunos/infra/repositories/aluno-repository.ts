@@ -1,10 +1,10 @@
-import { Client } from 'pg';
+import { Pool } from 'pg';
 import { AppError } from 'src/shared/errors';
 import { AlunoInterface } from '../../domain/models';
 import { AlunosRepositoryInterface } from '../../domain/repositories';
 
 export class AlunosRepository implements AlunosRepositoryInterface {
-  constructor(private readonly db: Client) {}
+  constructor(private readonly db: Pool) {}
 
   async create(aluno: AlunoInterface): Promise<AlunoInterface> {
     const sql = 'INSERT INTO aluno(nome) VALUES($1) RETURNING *';

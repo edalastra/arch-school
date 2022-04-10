@@ -1,10 +1,10 @@
-import { Client } from 'pg';
+import { Pool } from 'pg';
 import { AppError } from 'src/shared/errors';
 import { NotaInterface, ResultNotasInterface } from '../../domain/models';
 import { NotasRepositoryInterface } from '../../domain/repositories';
 
 export class NotaRepository implements NotasRepositoryInterface {
-  constructor(private readonly db: Client) {}
+  constructor(private readonly db: Pool) {}
 
   async create(nota: NotaInterface): Promise<NotaInterface> {
     const sql = 'INSERT INTO nota(aluno_id, valor) VALUES($1, $2) RETURNING *';
@@ -12,8 +12,6 @@ export class NotaRepository implements NotasRepositoryInterface {
 
     const result = await this.db.query(sql, values);
     const [createdNota] = result.rows;
-
-    console.log(createdNota);
 
     return {
       id: createdNota.id,
