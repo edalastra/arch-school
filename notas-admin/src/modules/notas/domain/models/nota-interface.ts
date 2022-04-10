@@ -18,6 +18,6 @@ export interface ResultNotasInterface {
   aluno_id: number;
   nome: string;
   media: number;
-  stituacao: string;
+  situacao: string;
   notas: number[];
 }

@@ -2,6 +2,7 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
   verbose: true,
+  testMatch: ['<rootDir>/tests/**/*.test.ts']
 };
 
 module.exports = config;
@@ -10,5 +11,6 @@ module.exports = config;
 module.exports = async () => {
   return {
     verbose: true,
+    testMatch: ['<rootDir>/tests/**/*.test.ts']
   };
 };
