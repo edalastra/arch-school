@@ -16,7 +16,7 @@ export class FakeNotaRepository implements NotasRepositoryInterface {
       valor: nota.valor,
     };
 
-    this.fakeNotas.includes(fakeNota);
+    this.fakeNotas.push(fakeNota);
 
     return fakeNota;
   }

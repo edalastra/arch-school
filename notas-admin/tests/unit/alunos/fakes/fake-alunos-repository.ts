@@ -12,7 +12,7 @@ export class FakeAlunosRepository implements AlunosRepositoryInterface {
       nome: aluno.nome,
     };
 
-    this.fakeAlunos.includes(fakeAluno);
+    this.fakeAlunos.push(fakeAluno);
 
     return fakeAluno;
   }
@@ -23,7 +23,7 @@ export class FakeAlunosRepository implements AlunosRepositoryInterface {
     );
 
     if (findIndex == -1) {
-      throw new AppError('Nota não encontrada.');
+      throw new AppError('Aluno não encontrado.');
     }
 
     return this.fakeAlunos[findIndex];

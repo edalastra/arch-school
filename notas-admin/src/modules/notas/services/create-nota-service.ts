@@ -1,5 +1,5 @@
-import { AlunosRepositoryInterface } from 'src/modules/alunos/domain/repositories';
-import { AppError } from 'src/shared/errors';
+import { AlunosRepositoryInterface } from '../../alunos/domain/repositories';
+import { AppError } from '../../../shared/errors';
 import { CreateNotaInterface, NotaInterface } from '../domain/models';
 import { NotasRepositoryInterface } from '../domain/repositories';
 
@@ -12,7 +12,7 @@ export class CreateNotaService {
   public async execute({
     alunoId,
     valor,
-  }: CreateNotaInterface): Promise<NotaInterface | null> {
+  }: CreateNotaInterface): Promise<NotaInterface> {
     const aluno = await this.alunosRepository.findById(alunoId);
 
     if (!aluno) {

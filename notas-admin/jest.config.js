@@ -1,16 +1,23 @@
-// Sync object
-/** @type {import('@jest/types').Config.InitialOptions} */
-const config = {
-  verbose: true,
-  testMatch: ['<rootDir>/tests/**/*.test.ts']
-};
+'use strict';
 
-module.exports = config;
+const { strict } = require('assert');
+const { resolve } = require('path');
+const root = resolve(__dirname);
 
-// Or async function
-module.exports = async () => {
-  return {
-    verbose: true,
-    testMatch: ['<rootDir>/tests/**/*.test.ts']
-  };
+module.exports = {
+	rootDir: root,
+	testEnvironment: 'node',
+	displayName: 'root-tests',
+	testMatch: ['<rootDir>/tests/**/*.test.ts'],
+	clearMocks: true,
+	preset: 'ts-jest',
+	collectCoverageFrom: [
+		'<rootDir>/src/**/*.ts',
+		'!<rootDir>/src/tests/**',
+		'!<rootDir>/src/config/**',
+		'!<rootDir>/src/**/*server.ts',
+		'!<rootDir>/src/**/*index.ts',
+		'!<rootDir>/src/**/*router.ts'
+	],
+	coverageDirectory: 'coverage'
 };
