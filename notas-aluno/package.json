@@ -1,5 +1,5 @@
 {
-  "name": "notas-admin",
+  "name": "notas-aluno",
   "version": "1.0.0",
   "description": "",
   "main": "src/shared/http/server.ts",
@@ -18,9 +18,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/edalastra/arch-school/notas-admin/issues"
+    "url": "https://github.com/edalastra/arch-school/notas-aluno/issues"
   },
-  "homepage": "https://github.com/edalastra/arch-school/notas-admin/#readme",
+  "homepage": "https://github.com/edalastra/arch-school/notas-aluno/#readme",
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
