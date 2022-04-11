@@ -5,18 +5,16 @@ import { createApp } from '../../../../src/config/app';
 describe('FindAllNotaHandler', function () {
   let app: Express.Application;
   beforeAll(async function () {
-    await client.query('CREATE TEMP TABLE aluno(LIKE aluno)');
-    await client.query('CREATE TEMP TABLE nota(LIKE nota)');
+    await client.query('DELETE FROM nota');
+    await client.query('DELETE FROM aluno');
 
     app = createApp();
   });
 
   beforeEach(async function () {
+    await client.query(`INSERT INTO aluno(id, nome) VALUES(1, 'test aluno')`);
     await client.query(
-      `INSERT INTO pg_temp.aluno(id, nome) VALUES(1, 'test aluno')`,
-    );
-    await client.query(
-      `INSERT INTO pg_temp.nota(id, aluno_id, valor) VALUES
+      `INSERT INTO nota(id, aluno_id, valor) VALUES
         (1, 1, 10.0),
         (2, 1, 8.0),
         (3, 1, 6.5)
@@ -25,8 +23,12 @@ describe('FindAllNotaHandler', function () {
   });
 
   afterEach(async function () {
-    await client.query('DROP TABLE IF EXISTS pg_temp.nota');
-    await client.query('DROP TABLE IF EXISTS pg_temp.aluno');
+    await client.query('DELETE FROM nota');
+    await client.query('DELETE FROM aluno');
+  });
+
+  afterAll(async function () {
+    await client.query(`INSERT INTO aluno(id, nome) VALUES(1, 'test aluno')`);
   });
 
   describe('GET /v1/notas', () => {
@@ -39,7 +41,7 @@ describe('FindAllNotaHandler', function () {
           {
             aluno_id: 1,
             nome: 'test aluno',
-            media: '8.16',
+            media: '8.17',
             situacao: 'APROVADO',
             notas: [10, 8, 6.5],
           },

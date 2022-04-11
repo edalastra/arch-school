@@ -2,27 +2,34 @@ import request from 'supertest';
 import { client } from '../../../../src/config/database';
 import { createApp } from '../../../../src/config/app';
 
-describe('UpdateNotaHandler', function () {
+describe('FindAllNotaHandler', function () {
   let app: Express.Application;
-  beforeEach(async function () {
-    await client.query('CREATE TEMP TABLE aluno(LIKE aluno)');
-    await client.query('CREATE TEMP TABLE nota(LIKE nota)');
+
+  beforeAll(async function () {
+    await client.query('DELETE FROM nota');
+    await client.query('DELETE FROM aluno');
 
     app = createApp();
   });
 
   beforeEach(async function () {
+    await client.query(`INSERT INTO aluno(id, nome) VALUES(1, 'test aluno')`);
     await client.query(
-      `INSERT INTO pg_temp.aluno(id, nome) VALUES(1, 'test aluno')`,
-    );
-    await client.query(
-      `INSERT INTO pg_temp.nota(id, valor, aluno_id) VALUES(1, 5.00, 1)`,
+      `INSERT INTO nota(id, aluno_id, valor) VALUES
+        (1, 1, 10.0),
+        (2, 1, 8.0),
+        (3, 1, 6.5)
+      `,
     );
   });
 
   afterEach(async function () {
-    await client.query('DROP TABLE IF EXISTS pg_temp.nota');
-    await client.query('DROP TABLE IF EXISTS pg_temp.aluno');
+    await client.query('DELETE FROM nota');
+    await client.query('DELETE FROM aluno');
+  });
+
+  afterAll(async function () {
+    await client.query(`INSERT INTO aluno(id, nome) VALUES(1, 'test aluno')`);
   });
 
   describe('POST /v1/notas', () => {
