@@ -19,7 +19,14 @@ describe('FindAllNotaHandler', () => {
   it('Should call the service', async () => {
     const { sut, service } = makeSut();
 
-    sut.handle({} as Request, mockResponse);
-    expect(service.execute).toBeCalled();
+    sut.handle(
+      {
+        user: {
+          id: 1,
+        },
+      } as unknown as Request,
+      mockResponse,
+    );
+    expect(service.execute).toBeCalledWith(1);
   });
 });
