@@ -27,6 +27,10 @@ describe('FindAllNotaHandler', function () {
     await client.query('DELETE FROM aluno');
   });
 
+  afterAll(async function () {
+    await client.query(`INSERT INTO aluno(id, nome) VALUES(1, 'test aluno')`);
+  });
+
   describe('GET /v1/notas', () => {
     it('Should create a new nota', async () => {
       const response = await request(app)

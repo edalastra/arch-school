@@ -9,7 +9,7 @@ export const authorizationMiddleware = (
 ): void => {
   const authHeader = request.headers.authorization as string;
 
-  if (!authHeader) {
+  if (!authHeader || !parseInt(authHeader)) {
     logger.error('Aluno Id is missing in authorization.');
     throw new AppError('Aluno Id is missing in authorization.');
   }
