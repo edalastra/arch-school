@@ -19,11 +19,13 @@ export class FindAllNotaService {
       throw new AppError('Aluno não encontrado.');
     }
 
-    let notas = await this.cache.recover<ResultNotasInterface>(
-      env.NOTAS_CACHE_KEY,
-    );
+    const redisKey = `${env.NOTAS_CACHE_KEY}:${alunoId}`;
+
+    let notas = await this.cache.recover<ResultNotasInterface>(redisKey);
     if (!notas) {
       notas = await this.notasRepository.findByAluno(alunoId);
+
+      await this.cache.save(redisKey, notas);
     }
 
     return notas;
