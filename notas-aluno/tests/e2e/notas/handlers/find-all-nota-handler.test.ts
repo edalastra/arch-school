@@ -32,7 +32,7 @@ describe('FindAllNotaHandler', function () {
   });
 
   describe('GET /v1/notas', () => {
-    it('Should create a new nota', async () => {
+    it('Should list all nota', async () => {
       const response = await request(app)
         .get('/v1/notas')
         .set('authorization', '1');
