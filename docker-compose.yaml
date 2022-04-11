@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+    notas-admin:
+      image: node:16.14-alpine
+      build: 
+        context: ./notas-admin
+      ports:
+        - 3000:3333
+      depends_on:
+        - postgres
+      env_file:
+        - .env.dev
+      networks:
+        - default
+
+    postgres:
+        image: postgres:12
+        restart: always
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=arch-school-dev
+        ports:
+          - 15432:5432
+        volumes: 
+          - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        networks:
+          default:
+            ipv4_address: 173.17.0.13
+
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 173.17.0.0/16
