@@ -9,6 +9,7 @@ export const errorMiddleware = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ) => {
+  console.log(error);
   logger.error(JSON.stringify(error));
 
   if (error instanceof AppError) {

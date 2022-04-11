@@ -1,3 +1,5 @@
+import { mock } from 'jest-mock-extended';
+import { RedisCacheInterface } from '../../../../src/config/cache';
 import { UpdateNotaService } from '../../../../src/modules/notas/services';
 import { FakeAlunosRepository } from '../../alunos/fakes';
 import { FakeNotaRepository } from '../fakes';
@@ -5,12 +7,14 @@ import { FakeNotaRepository } from '../fakes';
 const makeSut = () => {
   const alunosRepository = new FakeAlunosRepository();
   const notasRepository = new FakeNotaRepository();
-  const sut = new UpdateNotaService(notasRepository);
+  const cache = mock<RedisCacheInterface>();
+  const sut = new UpdateNotaService(notasRepository, cache);
 
   return {
     sut,
     notasRepository,
     alunosRepository,
+    cache,
   };
 };
 

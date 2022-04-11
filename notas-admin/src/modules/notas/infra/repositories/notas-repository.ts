@@ -49,13 +49,15 @@ export class NotaRepository implements NotasRepositoryInterface {
     const sql = `UPDATE nota SET valor = $1
 	    WHERE nota.id = $2 RETURNING *`;
     const values = [nota.valor, nota.aluno.id];
-    const result = await this.db.query(sql, values);
-    const [row] = result.rows;
+    await this.db.query(sql, values);
+
+    const selectNota = await this.findById(nota.id as number);
+
     return {
-      id: row.id,
-      valor: row.valor,
+      id: selectNota.id,
+      valor: selectNota.valor,
       aluno: {
-        id: row.aluno_id,
+        id: selectNota.aluno.id,
         nome: nota.aluno.nome,
       },
     };
