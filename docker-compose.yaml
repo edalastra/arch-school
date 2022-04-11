@@ -8,11 +8,17 @@ services:
         - 3000:3333
       depends_on:
         - postgres
+        - redis
       env_file:
         - .env.dev
       networks:
         - default
-
+    redis:
+      image: 'bitnami/redis:latest'
+      ports:
+        - 7000:6379
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
     postgres:
         image: postgres:12
         restart: always
