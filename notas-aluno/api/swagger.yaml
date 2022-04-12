@@ -1,0 +1,90 @@
+openapi: 3.0.3
+
+info:
+  title: notas-aluno
+  version: 1.0.0
+  description: >-
+    Microsserviço responsável por cadastrar e buscar notas.
+
+paths:
+  /v1/notas:
+    description: Responsável por retornar as notas do aluno
+    get:
+      tags: [Nota]
+      description: >-
+        Método utilizado buscar todas as notas do aluno trazendo a média aritmética e situação.
+      parameters:
+        - in: header
+          name: authorization
+          schema:
+            type: string
+          required: true
+          description: ID do aluno
+      responses:
+        200:
+          description: >-
+            Busca concluida com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1FindAll'
+        400:
+          $ref: '#/components/responses/400BadRequest'
+        500:
+          $ref: '#/components/responses/500ServerError'
+components:
+  schemas:
+    V1FindAll: 
+      type: object
+      properties:
+        notas:
+          type: object
+          properties:
+            aluno_id:
+              type: integer
+            nome:
+              type: string
+            media:
+              type: number
+            situacao:
+              type: string
+            notas:
+              type: array
+              items:
+                type: number
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["failure"]
+          description: Status of the requested action
+        message:
+          type: string
+          description: Error message
+  responses:
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: "error"
+            reason: "ID do aluno é obrigatório"
+    500ServerError:
+      description: An unexpected error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: "ServerError"
+            message: >-
+              An unexpected error occurred.
+tags:
+  - name: Nota
+servers:
+  - url: 'http://localhost:3333'
+    description: 'local'
+    variables: {}

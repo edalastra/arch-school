@@ -1,0 +1,185 @@
+openapi: 3.0.3
+
+info:
+  title: notas-admin
+  version: 1.0.0
+  description: >-
+    Microsserviço responsável por cadastrar e buscar notas.
+
+paths:
+  /v1/notas:
+    description: Responsável por retornar as notas de todos os alunos
+    get:
+      tags: [Nota]
+      description: >-
+        Método utilizado buscar todas as notas dos alunos trazendo a média aritmética e situação.
+      responses:
+        200:
+          description: >-
+            Busca concluida com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1FindAll'
+        500:
+          $ref: '#/components/responses/500ServerError'
+    post:
+      tags: [Nota]
+      description: >-
+        Rota utilizada para cadastrar nova nota
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1CreateNota'
+      responses:
+        200:
+          description: >-
+            Arquivo recebido com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotaAluno'
+        400:
+          $ref: '#/components/responses/400BadRequest'
+        500:
+          $ref: '#/components/responses/500ServerError'
+  /v1/notas/{notaId}:
+    description: Responsável por atualizar uma nota
+    post:
+      tags: [Nota]
+      description: >-
+        Rota utilizada para atualizar notas.
+      parameters:
+        - in: path
+          name: notaId
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1UpdateNota'
+      responses:
+        200:
+          description: >-
+            Arquivo recebido com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotaAluno'
+        400:
+          $ref: '#/components/responses/400BadRequest'
+        500:
+          $ref: '#/components/responses/500ServerError'
+components:
+  schemas:
+    V1CreateNota:
+      type: object
+      required: ["alunoId", "valor"]
+      properties:
+        alunoId:
+          description: ID de referência do aluno
+          type: integer
+          example: 1
+        valor:
+          description: Nota
+          type: integer
+          example: 6.5
+    V1UpdateNota:
+      type: object
+      required: ["valor"]
+      properties:
+        valor:
+          description: Nota do aluno
+          type: number
+          example: 6.5
+    V1FindAll: 
+      type: object
+      properties:
+        notas:
+          type: array
+          items: 
+            type: object
+            properties:
+              aluno_id:
+                type: integer
+              nome:
+                type: string
+              media:
+                type: number
+              situacao:
+                type: string
+              notas:
+                type: array
+                items:
+                  type: number
+    NotaAluno:
+      type: object
+      properties:
+        nota:
+          type: object
+          properties:
+            id:
+              type: string
+            valor:
+              type: number
+            aluno:
+              type: object
+              properties:
+                id:
+                  type: integer
+                nome:
+                  type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["failure"]
+          description: Status of the requested action
+        message:
+          type: string
+          description: Error message
+  responses:
+    406InvalidHeader:
+      description: Invalid header provided.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            version: 1.3.2
+            status: "failure"
+            reason: "InvalidHeader"
+            message: >-
+              Invalid header was provided with the request.
+            code: 406
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: "error"
+            reason: "Aluno não encontrado"
+    500ServerError:
+      description: An unexpected error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: "ServerError"
+            message: >-
+              An unexpected error occurred.
+tags:
+  - name: Nota
+servers:
+  - url: 'http://localhost:3333'
+    description: 'local'
+    variables: {}

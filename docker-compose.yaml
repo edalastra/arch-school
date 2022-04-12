@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+    notas-admin:
+      image: node:16.14-alpine
+      container_name: notas-admin
+      restart: always
+      build: 
+        context: notas-admin
+      ports:
+        - 8000:8000
+      depends_on:
+        - postgres
+        - redis
+      env_file:
+        - .env.dev
+    notas-aluno:
+      image: node:14
+      container_name: notas-aluno
+      restart: always
+      build: 
+        context: notas-aluno
+      ports:
+        - 3000:3000
+      depends_on:
+        - postgres
+        - redis
+      env_file:
+        - .env.dev
+
+    redis:
+      image: 'bitnami/redis:latest'
+      ports:
+        - 7000:6379
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+    postgres:
+        image: postgres:12
+        restart: always
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=arch-school-dev
+        ports:
+          - 15432:5432
+        volumes: 
+          - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+
