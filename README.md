@@ -1,4 +1,4 @@
-``## ArchShool
+## ArchShool
 
 Este repositório contém uma solução de cadastro e busca de notas. é subdivida em duas apis:
 
