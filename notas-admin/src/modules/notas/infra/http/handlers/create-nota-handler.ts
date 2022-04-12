@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CreateNotaInterface } from 'src/modules/notas/domain/models';
-import { CreateNotaService } from 'src/modules/notas/services';
+import { CreateNotaInterface } from '../../../domain/models';
+import { CreateNotaService } from '../../../services';
 import { logger } from '../../../../../shared/logger';
 import { HttpHandlerInterface } from 'src/shared/types';
 

@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "@types/ioredis": "^4.28.10",
+    "@types/ioredis": "^4.19.4",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
     "@types/pg": "^8.6.5",
@@ -54,7 +54,7 @@
     "eslint-plugin-jest": "^26.1.4",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
-    "ioredis": "^5.0.4",
+    "ioredis": "^4.19.4",
     "joi": "^17.6.0",
     "pg": "^8.7.3",
     "swagger-ui-express": "^4.3.0",

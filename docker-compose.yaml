@@ -2,17 +2,31 @@ version: '3.7'
 services:
     notas-admin:
       image: node:16.14-alpine
+      container_name: notas-admin
+      restart: always
       build: 
-        context: ./notas-admin
+        context: notas-admin
       ports:
-        - 3000:3333
+        - 8000:8000
       depends_on:
         - postgres
         - redis
       env_file:
         - .env.dev
-      networks:
-        - default
+    notas-aluno:
+      image: node:14
+      container_name: notas-aluno
+      restart: always
+      build: 
+        context: notas-aluno
+      ports:
+        - 3000:3000
+      depends_on:
+        - postgres
+        - redis
+      env_file:
+        - .env.dev
+
     redis:
       image: 'bitnami/redis:latest'
       ports:
@@ -30,14 +44,4 @@ services:
           - 15432:5432
         volumes: 
           - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-        networks:
-          default:
-            ipv4_address: 173.17.0.13
 
-networks:
-    default:
-        driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: 173.17.0.0/16

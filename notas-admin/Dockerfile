@@ -1,4 +1,4 @@
-FROM node:16.14-alpine
+FROM node:14
 
 WORKDIR /app
 
@@ -11,5 +11,4 @@ RUN npm i
 COPY . .
 RUN npm run-script build
 
-EXPOSE 8000
 ENTRYPOINT ["npm", "run-script", "start"]

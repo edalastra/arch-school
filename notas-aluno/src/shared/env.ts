@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3000;
 const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_PORT = parseInt(process.env.DB_PORT as string) || 15432;
 const DB_USER = process.env.DB_USER || 'postgres';
