@@ -9,6 +9,9 @@ Este repositório contém uma solução de cadastro e busca de notas. é subdivi
 - **Iniciar containers**: `$docker-compose up -d`
 - **Executar testes**:
 	Entrar na pasta do serviço e executar o comando: `$npm run test`, (é necessário que o banco de dados esteja funcionando localmente).
+- notas-admin será exposta na porta 8000
+- notas-aluno será exposta na porta 3000
+- A documentação das rotas podem ser consultadas em `/api-docs`
 
 ### Tecnologias utilizadas:
 - NodeJS
